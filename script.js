@@ -4,23 +4,42 @@ document.querySelector('.intro-hint').addEventListener('click', () => {
   celebration.scrollIntoView({ behavior: 'smooth' });
 });
 
-document.querySelector('.save-button').addEventListener('click', async () => {
-  const shareData = {
-    title: 'Kavya’s graduation card',
-    text: 'A graduation card for Kavya',
-    url: window.location.href,
-  };
+document.querySelector('.save-button').addEventListener('click', async (event) => {
+  const button = event.currentTarget;
+  const originalLabel = button.lastChild.textContent;
+  let printableCard;
 
-  if (navigator.share) {
-    try {
-      await navigator.share(shareData);
-      return;
-    } catch (error) {
-      if (error.name === 'AbortError') return;
+  button.disabled = true;
+  button.lastChild.textContent = ' Preparing PDF…';
+
+  try {
+    if (!window.html2canvas || !window.jspdf) throw new Error('PDF libraries unavailable');
+
+    printableCard = document.querySelector('.celebration').cloneNode(true);
+    printableCard.className = 'celebration pdf-card';
+    document.body.appendChild(printableCard);
+
+    const canvas = await window.html2canvas(printableCard, {
+      backgroundColor: '#f5f5f7',
+      scale: 2,
+      useCORS: true,
+    });
+    const pdf = new window.jspdf.jsPDF({ format: 'letter', unit: 'in' });
+    pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 8.5, 11);
+
+    const file = new File([pdf.output('blob')], 'Kavya-graduation-card.pdf', { type: 'application/pdf' });
+    if (navigator.canShare && navigator.canShare({ files: [file] })) {
+      await navigator.share({ files: [file], title: 'Kavya’s graduation card' });
+    } else {
+      pdf.save('Kavya-graduation-card.pdf');
     }
+  } catch (error) {
+    if (error.name !== 'AbortError') window.print();
+  } finally {
+    printableCard?.remove();
+    button.disabled = false;
+    button.lastChild.textContent = originalLabel;
   }
-
-  window.print();
 });
 
 const revealObserver = new IntersectionObserver(([entry]) => {
