@@ -1,28 +1,22 @@
 :root { color-scheme: light; }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
-body { margin: 0; color: #171716; background: #f5f3ee; font-family: "DM Mono", ui-monospace, monospace; }
+body { margin: 0; color: #1d1d1f; background: #fff; font-family: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", Arial, sans-serif; }
 main { overflow: clip; }
-.intro { min-height: 100svh; display: grid; place-content: center; position: relative; padding: 24px; color: #e9e8e3; background: #0b0b0a; text-align: center; isolation: isolate; }
-.grain { position: absolute; inset: 0; z-index: -1; opacity: .42; background-image: radial-gradient(#fff 0.55px, transparent .75px), radial-gradient(#fff 0.45px, transparent .7px); background-size: 4px 4px, 7px 7px; background-position: 0 0, 3px 2px; mask-image: radial-gradient(circle at center, black, transparent 70%); }
-.eyebrow { margin: 0 0 18px; color: #8b8b85; font-size: 10px; letter-spacing: .17em; text-transform: uppercase; }
-h1, h2 { margin: 0; font-family: "Playfair Display", Georgia, serif; font-weight: 600; letter-spacing: -.06em; }
-h1 { font-size: clamp(4.2rem, 20vw, 10rem); line-height: .85; }
-.intro-hint { position: absolute; bottom: 24px; left: 0; right: 0; color: #73736e; font-size: 10px; letter-spacing: .11em; text-transform: uppercase; }
-.intro-hint span { display: block; margin-top: 7px; font-size: 16px; animation: bob 1.8s ease-in-out infinite; }
-.celebration { min-height: max(760px, 100svh); display: grid; place-items: center; position: relative; padding: 90px 22px 80px; background: #f5f3ee; text-align: center; }
-.topline, .bottomline { display: flex; justify-content: space-between; position: absolute; left: 20px; right: 20px; color: #8b8a84; font-size: 8px; letter-spacing: .13em; text-transform: uppercase; }
-.topline { top: 20px; }.bottomline { bottom: 20px; }.topline span:first-child { width: 28px; height: 1px; background: #a8a69e; }
-.message { position: relative; z-index: 2; max-width: 570px; animation: arrive .8s .1s both cubic-bezier(.2,.8,.2,1); }
-.message .eyebrow { color: #8e6c43; }
-h2 { color: #20201d; font-size: clamp(3.35rem, 14.7vw, 8.8rem); line-height: .8; text-transform: uppercase; }
-h2 span { color: #b78549; }
-.party { margin: 23px auto 18px; font-size: clamp(2.3rem, 8vw, 4rem); filter: drop-shadow(0 8px 8px rgba(74,43,7,.13)); transform: rotate(-8deg); }
-.signoff { color: #5f5e58; font-family: "Playfair Display", Georgia, serif; font-size: 18px; font-style: italic; }
-.photo { position: absolute; z-index: 1; width: clamp(106px, 29vw, 250px); aspect-ratio: .84; padding: 6px 6px 24px; overflow: hidden; background: #fff; box-shadow: 0 16px 35px rgba(37, 29, 18, .18); transform-origin: center; opacity: 0; animation: polaroid .8s both cubic-bezier(.2,.8,.2,1); }
-.photo img { display: block; width: 100%; height: 100%; object-fit: cover; filter: saturate(.88) contrast(.98); }
+.intro { min-height: 100svh; display: grid; place-content: center; position: relative; padding: 24px; color: #f5f5f7; background: radial-gradient(circle at 50% 85%, #262628 0, #000 47%); text-align: center; overflow: hidden; }
+.grain { position: absolute; inset: 0; opacity: .22; background: radial-gradient(ellipse at 50% 105%, transparent 0 28%, #000 72%); }
+.eyebrow { margin: 0 0 14px; color: #86868b; font-size: 17px; font-weight: 600; letter-spacing: -.01em; }
+h1, h2 { margin: 0; font-family: inherit; font-weight: 700; letter-spacing: -.055em; }
+h1 { font-size: clamp(4rem, 19vw, 10.5rem); line-height: .96; }
+.intro-hint { position: absolute; bottom: 29px; left: 0; right: 0; border: 0; color: #a1a1a6; background: transparent; font: 400 14px/1.25 inherit; cursor: pointer; }.intro-hint span { display: block; margin-top: 5px; font-size: 17px; animation: bob 1.8s ease-in-out infinite; }
+.celebration { min-height: max(760px, 100svh); display: grid; place-items: center; position: relative; padding: 90px 22px 80px; background: #f5f5f7; text-align: center; }
+.topline, .bottomline { display: flex; justify-content: space-between; position: absolute; left: 20px; right: 20px; color: #6e6e73; font-size: 11px; font-weight: 500; letter-spacing: -.01em; }.topline { top: 22px; }.bottomline { bottom: 22px; }.topline span:first-child { width: 26px; height: 1px; align-self: center; background: #6e6e73; }
+.message { position: relative; z-index: 2; max-width: 680px; animation: arrive .8s .1s both cubic-bezier(.2,.8,.2,1); }.message .eyebrow { color: #6e6e73; }
+h2 { color: #1d1d1f; font-size: clamp(3.1rem, 13.3vw, 8.5rem); line-height: .91; text-transform: none; }h2 span { color: #ff6b00; }
+.party { margin: 23px auto 16px; font-size: clamp(2.3rem, 8vw, 4rem); filter: drop-shadow(0 8px 8px rgba(74,43,7,.13)); transform: rotate(-8deg); }.signoff { margin: 0; color: #6e6e73; font-size: 19px; letter-spacing: -.015em; }
+.photo { position: absolute; z-index: 1; width: clamp(106px, 29vw, 250px); aspect-ratio: .84; padding: 6px 6px 24px; overflow: hidden; background: #fff; box-shadow: 0 10px 28px rgba(0,0,0,.12); transform-origin: center; opacity: 0; animation: polaroid .8s both cubic-bezier(.2,.8,.2,1); }.photo img { display: block; width: 100%; height: 100%; object-fit: cover; filter: saturate(.94) contrast(.99); }
 .photo-one { top: 11%; left: -5%; transform: rotate(-12deg); animation-delay: .2s; }.photo-two { top: 11%; right: -5%; transform: rotate(11deg); animation-delay: .35s; }.photo-three { bottom: 12%; left: -6%; transform: rotate(10deg); animation-delay: .48s; }.photo-four { bottom: 12%; right: -6%; transform: rotate(-9deg); animation-delay: .62s; }
-.save-button { display: inline-flex; align-items: center; gap: 8px; position: fixed; z-index: 5; right: 16px; bottom: 16px; border: 0; border-radius: 999px; padding: 13px 17px; color: #fff; background: rgba(29,29,28,.9); box-shadow: 0 5px 20px rgba(0,0,0,.18); backdrop-filter: blur(16px); font: 500 11px/1 "DM Mono", monospace; letter-spacing: .02em; cursor: pointer; transition: transform .2s, background .2s; }.save-button:hover { background: #000; transform: translateY(-2px); }.save-button svg { width: 15px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.7; }
+.save-button { display: inline-flex; align-items: center; gap: 7px; position: fixed; z-index: 5; right: 16px; bottom: 16px; border: 0; border-radius: 980px; padding: 12px 16px; color: #fff; background: rgba(0,113,227,.94); box-shadow: 0 4px 18px rgba(0,79,159,.2); backdrop-filter: saturate(180%) blur(20px); font: 400 15px/1.1 inherit; cursor: pointer; transition: transform .2s, background .2s; }.save-button:hover { background: #0077ed; transform: scale(1.025); }.save-button svg { width: 15px; fill: none; stroke: currentColor; stroke-linecap: round; stroke-linejoin: round; stroke-width: 1.7; }
 @keyframes bob { 50% { transform: translateY(5px); } } @keyframes arrive { from { opacity: 0; transform: translateY(22px); } to { opacity: 1; transform: translateY(0); } } @keyframes polaroid { from { opacity: 0; transform: translateY(44px) rotate(0deg) scale(.88); } to { opacity: 1; } }
 @media (min-width: 760px) { .celebration { min-height: 100svh; }.photo { padding: 9px 9px 35px; }.photo-one { left: 8%; top: 16%; }.photo-two { right: 8%; top: 14%; }.photo-three { left: 9%; bottom: 15%; }.photo-four { right: 10%; bottom: 14%; }.topline, .bottomline { left: 42px; right: 42px; } }
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { animation-duration: .01ms !important; scroll-behavior: auto !important; } }
