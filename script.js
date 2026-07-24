@@ -4,6 +4,25 @@ document.querySelector('.intro-hint').addEventListener('click', () => {
   celebration.scrollIntoView({ behavior: 'smooth' });
 });
 
+document.querySelector('.save-button').addEventListener('click', async () => {
+  const shareData = {
+    title: 'Kavya’s graduation card',
+    text: 'A graduation card for Kavya',
+    url: window.location.href,
+  };
+
+  if (navigator.share) {
+    try {
+      await navigator.share(shareData);
+      return;
+    } catch (error) {
+      if (error.name === 'AbortError') return;
+    }
+  }
+
+  window.print();
+});
+
 const revealObserver = new IntersectionObserver(([entry]) => {
   if (!entry.isIntersecting) return;
   celebration.classList.add('is-revealed');
