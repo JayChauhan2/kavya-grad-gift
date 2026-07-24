@@ -8,6 +8,8 @@ document.querySelector('.save-button').addEventListener('click', async (event) =
   const button = event.currentTarget;
   const originalLabel = button.lastChild.textContent;
   let printableCard;
+  let pdfBack;
+  const previewWindow = window.open('', '_blank');
 
   button.disabled = true;
   button.lastChild.textContent = ' Preparing PDF…';
@@ -27,16 +29,37 @@ document.querySelector('.save-button').addEventListener('click', async (event) =
     const pdf = new window.jspdf.jsPDF({ format: 'letter', unit: 'in' });
     pdf.addImage(canvas.toDataURL('image/png'), 'PNG', 0, 0, 8.5, 11);
 
-    const file = new File([pdf.output('blob')], 'Kavya-graduation-card.pdf', { type: 'application/pdf' });
-    if (navigator.canShare && navigator.canShare({ files: [file] })) {
-      await navigator.share({ files: [file], title: 'Kavya’s graduation card' });
+    pdfBack = document.createElement('section');
+    pdfBack.className = 'pdf-back';
+    pdfBack.innerHTML = `<article class="pdf-paper"><p>${revealText}</p><p class="pdf-signature">– Jay</p></article>`;
+    document.body.appendChild(pdfBack);
+    await document.fonts?.ready;
+
+    const backCanvas = await window.html2canvas(pdfBack, {
+      backgroundColor: '#dcecff',
+      scale: 2,
+      useCORS: true,
+    });
+    pdf.addPage('letter', 'portrait');
+    pdf.addImage(backCanvas.toDataURL('image/png'), 'PNG', 0, 0, 8.5, 11);
+
+    const pdfUrl = URL.createObjectURL(pdf.output('blob'));
+    if (previewWindow) {
+      previewWindow.location.href = pdfUrl;
+      window.setTimeout(() => URL.revokeObjectURL(pdfUrl), 120000);
     } else {
-      pdf.save('Kavya-graduation-card.pdf');
+      const download = document.createElement('a');
+      download.href = pdfUrl;
+      download.download = 'Kavya-graduation-card.pdf';
+      download.click();
+      window.setTimeout(() => URL.revokeObjectURL(pdfUrl), 120000);
     }
   } catch (error) {
-    if (error.name !== 'AbortError') window.print();
+    previewWindow?.close();
+    window.print();
   } finally {
     printableCard?.remove();
+    pdfBack?.remove();
     button.disabled = false;
     button.lastChild.textContent = originalLabel;
   }
