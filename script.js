@@ -27,7 +27,7 @@ const revealCharacters = [...revealText].map((character) => {
 const updateLetterReveal = () => {
   const section = document.querySelector('.letter-reveal');
   const sectionTop = section.getBoundingClientRect().top;
-  const travel = section.offsetHeight + window.innerHeight;
+  const travel = section.offsetHeight;
   const progress = Math.min(1, Math.max(0, (window.innerHeight - sectionTop) / travel));
   revealCharacters.forEach((character, index) => {
     const amount = Math.min(1, Math.max(0, progress * revealCharacters.length - index));
