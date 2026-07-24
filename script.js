@@ -38,10 +38,3 @@ const updateLetterReveal = () => {
 window.addEventListener('scroll', updateLetterReveal, { passive: true });
 window.addEventListener('resize', updateLetterReveal);
 updateLetterReveal();
-
-const closingSection = document.querySelector('.letter-reveal');
-const closingObserver = new IntersectionObserver(([entry]) => {
-  closingSection.classList.toggle('is-active', entry.isIntersecting);
-}, { threshold: 0.01 });
-
-closingObserver.observe(closingSection);
