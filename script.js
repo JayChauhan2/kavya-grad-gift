@@ -9,7 +9,6 @@ document.querySelector('.save-button').addEventListener('click', async (event) =
   const originalLabel = button.lastChild.textContent;
   let printableCard;
   let pdfBack;
-  const previewWindow = window.open('', '_blank');
 
   button.disabled = true;
   button.lastChild.textContent = ' Preparing PDF…';
@@ -43,11 +42,11 @@ document.querySelector('.save-button').addEventListener('click', async (event) =
     pdf.addPage('letter', 'portrait');
     pdf.addImage(backCanvas.toDataURL('image/png'), 'PNG', 0, 0, 8.5, 11);
 
-    const pdfUrl = URL.createObjectURL(pdf.output('blob'));
-    if (previewWindow) {
-      previewWindow.location.href = pdfUrl;
-      window.setTimeout(() => URL.revokeObjectURL(pdfUrl), 120000);
+    const pdfFile = new File([pdf.output('blob')], 'Kavya-graduation-card.pdf', { type: 'application/pdf' });
+    if (navigator.canShare?.({ files: [pdfFile] })) {
+      await navigator.share({ files: [pdfFile], title: 'Kavya’s graduation card' });
     } else {
+      const pdfUrl = URL.createObjectURL(pdfFile);
       const download = document.createElement('a');
       download.href = pdfUrl;
       download.download = 'Kavya-graduation-card.pdf';
@@ -55,8 +54,7 @@ document.querySelector('.save-button').addEventListener('click', async (event) =
       window.setTimeout(() => URL.revokeObjectURL(pdfUrl), 120000);
     }
   } catch (error) {
-    previewWindow?.close();
-    window.print();
+    if (error.name !== 'AbortError') window.print();
   } finally {
     printableCard?.remove();
     pdfBack?.remove();
